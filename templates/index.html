@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion-MNIST</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    
+</head>
+<body>
+    <div id="conatiner1" >
+        <h1 id="heading">FASHION-MNIST</h1>
+    </div>
+    <div id="conatiner2">
+        <form id="upload-form" action="/predict" method="post" enctype="multipart/form-data">
+            <label for="file" id="label1">Upload the image</label>
+            <input type="file" name="file" id="mnist">
+            <input type="submit" name="submit" id="submit">
+            {% if imagePath %}
+            <img src="{{ url_for('static',filename=imagePath) }}" id="upload-image"  alt="Uploaded Image">
+            <h3 style="font-size: 30px;color: aliceblue;">{{ result }}</h3>
+            {% endif %}
+        </form>
+         <script>
+            document.getElementById('upload-form').addEventListener('submit',function(event){
+                let fileInput=document.getElementById('mnist');
+                let filePath = fileInput.value;
+                let allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/;
+                if (!allowedExtensions.exec(filePath)){
+                    alert("Please upload an image");
+                    event.preventDefault();
+                }
+            })
+         </script> 
+    </div>
+</body>
+</html>
